@@ -1,5 +1,6 @@
 from snowboy import snowboydecoder
 import signal
+import subprocess
 
 interrupted = False
 
@@ -13,7 +14,11 @@ def interrupt_callback():
 
 def record_callback():
     snowboydecoder.play_audio_file()
-    print "hello"
+    print "Recording..."
+
+    command = "sox -d -r 44100 -b 16 resources/capture.wav silence 1 0.1 3% 1 3.0 3%"
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
+
 
 def hotword_detector():
     model = "resources/Hi_Sally.pmdl"
