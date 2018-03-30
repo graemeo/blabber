@@ -3,12 +3,14 @@ import signal
 import subprocess
 import io
 import time
+import os
 
 from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
 
 from threading import Thread
+from apixu.client import ApixuClient, ApixuException
 
 interrupted = False
 
@@ -25,10 +27,11 @@ def record_callback():
     record_thread.start()
     record_thread.join()
 
-    stt_thread = Thread(target=speech_to_text())
-    stt_thread.start()
-    stt_thread.join()
+    #stt_thread = Thread(target=speech_to_text())
+    #stt_thread.start()
+    #stt_thread.join()
 
+    text_to_speech("'The weather now in Sydney, is {} degrees celcius'".format(get_weather()))
 
 def record():
     snowboydecoder.play_audio_file()
@@ -37,8 +40,10 @@ def record():
     command = "rec -r 16000 -b 16 resources/capture.raw silence 1 0.1 3% 1 3.0 3%"
     process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True).wait()
 
-def text_to_speech():
-    subprocess.Popen("espeak 'yes' -s150", stdout=subprocess.PIPE, shell=True).wait()
+def text_to_speech(message):
+    print message
+    command = "espeak -s130 -ven-us+f5 " + message
+    subprocess.Popen(command, stdout=subprocess.PIPE, shell=True).wait()
 
 def speech_to_text():
     client = speech.SpeechClient()
@@ -55,6 +60,12 @@ def speech_to_text():
     for result in response.results:
          print('Transcript: {}'.format(result.alternatives[0].transcript))
     
+
+def get_weather():
+    client = ApixuClient(os.environ.get("APIXU_API_KEY"))
+    current = client.getCurrentWeather(q='Sydney')
+    return current.get("current").get("temp_c")
+
 def hotword_detector():
     model = "resources/Hi_Sally.pmdl"
     
