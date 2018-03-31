@@ -23,6 +23,8 @@ def interrupt_callback():
     return interrupted
 
 def record_callback():
+
+    sally_acknowledge()
     record_thread = Thread(target=record())
     record_thread.start()
     record_thread.join()
@@ -77,6 +79,9 @@ def hotword_detector():
                    sleep_time=0.03)
 
     detector.terminate()
+
+def sally_acknowledge():
+    text_to_speech("'Whats up'")
 
 def main():
     signal.signal(signal.SIGINT, signal_handler)
