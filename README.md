@@ -2,15 +2,15 @@
 
 ## Description
 
-This is a speech recognition application built in Python for learning and demonstration purposes only. Speech recognition is triggered using hotword detection, "Hi Sally".
+This is a speech recognition application built in Python for my ownlearning and demonstration purposes only. This application is triggered with the use of hotword detection, "Hi Sally".
 
-I'll be building this application in such a way that you can easily plug in and play different speech recognition APIs out there.
+I'll be building this application in such a way that you can easily plug and play with different speech recognition modules built and maintained by third party..
 
 You are more than welcome to use this, however, as I have mentioned I have only built this for my own learning and this is not built for commercial use!
 
 *CONTRIBUTION*
 
-I've come from a Java background and I am no expect in Python, hence please forgive me for any mistakes I may have introduced whilst developing this application. That said, you are more than welcome to fork this repo, make any ammendment and submit a pull request.
+I've come from a Java background and I am no expert in Python, so please forgive me for any mistakes I may have introduced whilst developing this application. That said, you are more than welcome to fork this repo, make ammendments and submit a pull request.
 
 *WARNING!*
 
@@ -20,9 +20,15 @@ If you are using speech recognition services such as Google or Amazon, please en
 
 ## Pre-requisite(s)
 
-* SoX module
+* SoX
+* eSpeak
+
 
 ## Installation
+
+```bash
+pip install git+https://github.com/apixu/apixu-python.git -r requirements.txt
+```
 
 ## Usage(s)
 
