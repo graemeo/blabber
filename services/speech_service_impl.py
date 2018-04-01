@@ -34,6 +34,7 @@ class SpeechServiceImpl:
         return self.interrupted
 
     def detect_callback(self):
+        self.speak("'Whats up'")
         self.process()
 
     def process(self):
