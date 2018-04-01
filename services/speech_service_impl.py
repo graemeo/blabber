@@ -4,6 +4,7 @@ from hotword.snowboy_hotword_impl import SnowboyHotwordImpl
 from recorder.sox_recorder_impl import SoxRecorderImpl
 from transcriber.google_transcriber_impl import GoogleTranscriberImpl
 from speaker.espeak_speaker_impl import EspeakSpeakerImpl
+from api.external.weather.apixu_weather_impl import ApixuWeatherImpl
 
 class SpeechServiceImpl:
 
@@ -11,11 +12,14 @@ class SpeechServiceImpl:
     recorder = None
     transcriber = None
     speaker = None
+    api_weather = None
+
 
     def __init__(self):
         self.recorder = SoxRecorderImpl()
         self.transcriber = GoogleTranscriberImpl()
         self.speaker = EspeakSpeakerImpl()
+        self.api_weather = ApixuWeatherImpl()
         
     def invoke(self):
         signal.signal(signal.SIGINT, self.signal_handler)
@@ -50,3 +54,6 @@ class SpeechServiceImpl:
    
     def speak(self, message):
         return self.speaker.speak(message) 
+
+    def get_weather(self):
+        return self.api_weather.get_weather()
