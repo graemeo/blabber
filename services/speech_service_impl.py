@@ -1,6 +1,7 @@
 import signal
 
 from hotword.snowboy_hotword_impl import SnowboyHotwordImpl
+from recorder.sox_recorder_impl import SoxRecorderImpl
 
 class SpeechServiceImpl:
 
@@ -16,7 +17,13 @@ class SpeechServiceImpl:
         self.interrupted = True
 
     def detect_callback(self):
-        """"""
+        self.record()
 
     def interrupt_callback(self):
         return self.interrupted
+
+    def record(self):
+        recorder = SoxRecorderImpl()
+        recorder.record()
+
+    
