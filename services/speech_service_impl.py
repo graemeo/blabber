@@ -2,11 +2,21 @@ import signal
 
 from hotword.snowboy_hotword_impl import SnowboyHotwordImpl
 from recorder.sox_recorder_impl import SoxRecorderImpl
+from transcriber.google_transcriber_impl import GoogleTranscriberImpl
+from speaker.espeak_speaker_impl import EspeakSpeakerImpl
 
 class SpeechServiceImpl:
 
     interrupted = False
+    recorder = None
+    transcriber = None
+    speaker = None
 
+    def __init__(self):
+        self.recorder = SoxRecorderImpl()
+        self.transcriber = GoogleTranscriberImpl()
+        self.speaker = EspeakSpeakerImpl()
+        
     def invoke(self):
         signal.signal(signal.SIGINT, self.signal_handler)
 
@@ -16,14 +26,27 @@ class SpeechServiceImpl:
     def signal_handler(self, signal, frame):
         self.interrupted = True
 
-    def detect_callback(self):
-        self.record()
-
     def interrupt_callback(self):
         return self.interrupted
 
-    def record(self):
-        recorder = SoxRecorderImpl()
-        recorder.record()
+    def detect_callback(self):
+        self.process()
 
-    
+    def process(self):
+        self.record()
+        
+        #transcript = self.get_transcript()
+
+        #if transcript is None:
+            # espeak
+        #else:
+            # check if matches
+
+    def record(self):
+        self.recorder.record()
+
+    def get_transcript(self):
+        return self.transcriber.transcribe(None)
+   
+    def speak(self, message):
+        return self.speaker.speak(message) 

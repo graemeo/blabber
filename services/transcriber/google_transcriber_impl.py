@@ -24,4 +24,4 @@ class GoogleTranscriberImpl(TranscriberAbstract):
         if response.results:
             return response.results[0].alternatives[0].transcript
         else:
-            return
+            return None
