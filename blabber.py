@@ -5,8 +5,6 @@ import io
 import time
 import os
 
-from threading import Thread
-
 interrupted = False
 
 def signal_handler(signal, frame):
@@ -18,22 +16,7 @@ def interrupt_callback():
     return interrupted
 
 def record_callback():
-
     sally_acknowledge()
-    record_thread = Thread(target=record())
-    record_thread.start()
-    record_thread.join()
-
-    #stt_thread = Thread(target=speech_to_text())
-    #stt_thread.start()
-    #stt_thread.join()
-
-def record():
-    snowboydecoder.play_audio_file()
-    print "Recording..."
-
-    command = "rec -r 16000 -b 16 resources/capture.raw silence 1 0.1 3% 1 3.0 3%"
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True).wait()
 
 def hotword_detector():
     model = "resources/Hi_Sally.pmdl"
