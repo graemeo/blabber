@@ -10,7 +10,7 @@ class GoogleTranscriberImpl(TranscriberAbstract):
 
     def transcribe(self, source):
         client = speech.SpeechClient()
-        file_name = "/Users/graemeong/Documents/projects/blabber/resources/capture.raw"
+        file_name = "resources/capture.raw"
 
         with io.open(file_name, 'rb') as audio_file:
              content = audio_file.read()
