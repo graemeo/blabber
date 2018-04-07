@@ -19,7 +19,7 @@ class GoogleTranscriberImpl(TranscriberAbstract):
         config = types.RecognitionConfig(encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16, sample_rate_hertz=16000, language_code='en-US')
 
         response = client.recognize(config, audio)
-        print response
+        print "Transcript response: {}".format(response)
 
         if response.results:
             return response.results[0].alternatives[0].transcript

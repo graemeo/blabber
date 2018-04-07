@@ -6,7 +6,6 @@ from services.hotword.snowboy_hotword_impl import SnowboyHotwordImpl
 from services.recorder.sox_recorder_impl import SoxRecorderImpl
 from services.transcriber.google_transcriber_impl import GoogleTranscriberImpl
 from services.speaker.espeak_speaker_impl import EspeakSpeakerImpl
-from services.api.external.weather.apixu_weather_impl import ApixuWeatherImpl
 
 class SpeechServiceImplTest(unittest.TestCase):
 
@@ -48,12 +47,3 @@ class SpeechServiceImplTest(unittest.TestCase):
 
         # then
         mock_espeak_speak.assert_called_once()
-
-    @patch.object(ApixuWeatherImpl, "get_weather")
-    def test_should_invoke_apixu_weather_get_weather_function(self, mock_apixu_get_weather):
-        # given
-        # when
-        self.speech_service.get_weather()
-
-        # then
-        mock_apixu_get_weather.assert_called_once()

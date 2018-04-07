@@ -1,6 +1,8 @@
-from services.weather_recogniser import WeatherRecogniser
-
 import unittest
+
+from mock import patch
+from services.weather_recogniser import WeatherRecogniser
+from services.api.external.weather.apixu_weather_impl import ApixuWeatherImpl
 
 class WeatherRecogniserTest(unittest.TestCase):
 
@@ -30,3 +32,23 @@ class WeatherRecogniserTest(unittest.TestCase):
         # given
         # then
         self.assertTrue(self.weather.is_recognised(text))
+
+    @patch.object(ApixuWeatherImpl, "get_weather")
+    def test_should_invoke_apixu_weather_api_get_weather(self, mock_apixu_get_weather):
+        # given
+        # when
+        self.weather.get()
+
+        # then
+        mock_apixu_get_weather.assert_called_once()
+
+    @patch.object(ApixuWeatherImpl, "get_weather")
+    def test_should_return_weather_text(self, mock_apixu_get_weather):
+        # given
+        fake_temperature = 10
+        actual = "The weather in Sydney is {} degrees celsius".format(fake_temperature)
+        mock_apixu_get_weather.return_value = fake_temperature
+
+        # when
+        # them
+        self.assertEqual(self.weather.get(), actual)
