@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/graemeo/blabber.svg?branch=master)](https://travis-ci.org/graemeo/blabber)
+
 # Blabber - "Hi Sally"
 
 ## Description
