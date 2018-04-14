@@ -1,15 +1,10 @@
+os: osx
 language: python
 python:
    - "2.7"
 
 before_install:
-   - sudo apt-get install libasound-dev
-   - wget http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz
-   - tar xvzf pa_stable_v190600_20161030.tgz
-   - portaudio/configure && make
-   - wget http://prdownloads.sourceforge.net/swig/swig-3.0.12.tar.gz
-   - tar xvzf swig-3.0.12.tar.gz
-   - swig-3.0.12/configure && make
+   - brew install portaudio
 
 install:
    - pip install git+https://github.com/apixu/apixu-python.git -r requirements.txt
