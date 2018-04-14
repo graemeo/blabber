@@ -10,13 +10,13 @@ class GoogleTranscriberImpl(TranscriberAbstract):
 
     def transcribe(self, source):
         client = speech.SpeechClient()
-        file_name = "resources/capture.raw"
+        file_name = "resources/capture.wav"
 
         with io.open(file_name, 'rb') as audio_file:
              content = audio_file.read()
              audio = types.RecognitionAudio(content=content)
 
-        config = types.RecognitionConfig(encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16, sample_rate_hertz=16000, language_code='en-US')
+        config = types.RecognitionConfig(language_code='en-US')
 
         response = client.recognize(config, audio)
         print "Transcript response: {}".format(response)
